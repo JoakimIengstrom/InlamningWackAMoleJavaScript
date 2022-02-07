@@ -1,9 +1,9 @@
 //glue-code, (UI-code, frontend-code)
 
-import { TimeManager } from "./game.js";
+import { Logic } from "./game.js";
 import { GameScore } from "./game.js";
 
-const logic = new TimeManager();
+const logic = new Logic();
 const gameScore = new GameScore();
 
 const holes = document.querySelectorAll(".hole");
@@ -22,6 +22,18 @@ function startGame() {
   timer();
 }
 
+startButton.addEventListener("click", startGame);
+
+function pickRandomHole(holes) {
+  const randomHole = Math.floor(Math.random() * holes.length);
+  const hole = holes[randomHole];
+  if (hole === logic.lastHole) {
+    return pickRandomHole(holes);
+  }
+  logic.lastHole = hole;
+  return hole;
+}
+
 function popOut() {
   const popOutTime = Math.random() * 1300 + 400;
   const hole = pickRandomHole(holes);
@@ -38,16 +50,6 @@ function popOut() {
       }, popOutTime);
     }
   }
-}
-
-function pickRandomHole(holes) {
-  const randomHole = Math.floor(Math.random() * holes.length);
-  const hole = holes[randomHole];
-  if (hole === logic.lastHole) {
-    return pickRandomHole(holes);
-  }
-  logic.lastHole = hole;
-  return hole;
 }
 
 function whackMole(e) {
@@ -88,5 +90,3 @@ function printHighscore() {
 }
 
 printHighscore();
-
-startButton.addEventListener("click", startGame);

@@ -1,7 +1,7 @@
-export class TimeManager {
+export class Logic {
   constructor() {
-    this.lastHole;
-    this.timeLimit = 10000;
+    let lastHole;
+    this.timeLimit = 20000;
     this.countdown = this.timeLimit / 1000;
   }
 
