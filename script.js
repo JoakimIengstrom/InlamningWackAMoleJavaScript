@@ -16,9 +16,11 @@ const countdownBoard = document.querySelector(".countdown");
 printHighscore();
 
 function startGame() {
+  gameScore.resetScore();
   scoreBoard.textContent = 0;
   scoreBoard.style.textContent = "block";
   startButton.style.visibility = "hidden";
+  logic.resetCountDown();
   countdownBoard.textContent = "Time left: " + logic.countdown;
   popOut();
   timer();
@@ -80,7 +82,7 @@ function timer() {
 }
 
 function scoreUppdate() {
-  if (gameScore.score > 0 && gameScore.score == gameScore.newHighscore) {
+  if (gameScore.score > 0 && gameScore.score == gameScore.highscore) {
     highScore.textContent = "New HighScore: " + gameScore.score + " points";
     gameScore.saveHighScore();
   }

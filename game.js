@@ -5,6 +5,10 @@ export class Logic {
     this.countdown = this.timeLimit / 1000;
   }
 
+  resetCountDown() {
+    this.countdown = this.timeLimit / 1000;
+  }
+
   countDown() {
     this.countdown -= 1;
   }
@@ -21,20 +25,22 @@ export class GameScore {
     this.highscore = localStorage.getItem("save");
   }
 
+  resetScore() {
+    this.score = 0;
+  }
+
   whackedMole() {
     this.score++;
   }
 
   saveHighScore() {
-    localStorage.setItem("save", JSON.stringify(this.newHighscore));
+    localStorage.setItem("save", JSON.stringify(this.highscore));
   }
   loadHighScore() {
-    let loadedHighscore = this.highscore;
-    if (localStorage.getItem("save") > 0) {
-      return loadedHighscore;
+    if (this.highscore > 0) {
+      return this.highscore;
     } else {
-      loadedHighscore = 0;
-      return loadedHighscore;
+      return 0;
     }
   }
   uppdateHighScore() {
