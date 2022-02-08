@@ -6,6 +6,8 @@ import { GameScore } from "./game.js";
 const logic = new Logic();
 const gameScore = new GameScore();
 
+const sonicMainSkin = 'url("/image/sonic.png")';
+const sonicWackedSkin = 'url("/image/sonic3.png")';
 const holes = document.querySelectorAll(".hole");
 const moles = document.querySelectorAll(".mole");
 const scoreBoard = document.querySelector(".score");
@@ -14,11 +16,11 @@ const startButton = document.querySelector(".startButton");
 const countdownBoard = document.querySelector(".countdown");
 
 function startGame() {
+  logic.resetCountDown();
   gameScore.resetScore();
   scoreBoard.textContent = 0;
   scoreBoard.style.textContent = "block";
   startButton.style.visibility = "hidden";
-  logic.resetCountDown();
   countdownBoard.textContent = "Time left: " + logic.countdown;
   popOut();
   timer();
@@ -39,8 +41,11 @@ function pickRandomHole() {
 function popOut() {
   const popOutTime = Math.random() * 1300 + 400;
   const hole = pickRandomHole(holes);
-  hole.classList.add("up");
+  popOutEvent(popOutTime, hole);
+}
 
+function popOutEvent(popOutTime, hole) {
+  hole.classList.add("up");
   for (let mole of moles) {
     if (mole.id.slice(-1) === hole.id.slice(-1)) {
       mole.addEventListener("click", whackMole);
@@ -55,14 +60,26 @@ function popOut() {
 }
 
 function whackMole(e) {
-  gameScore.whackedMole();
-  this.style.backgroundImage = 'url("/image/sonic3.png")';
+  gameScore.whackedMole(logic); //Skickar med logic för att kunna ta bort score++, så jag inte kan få score efter tiden är slut.
+  //wackVisual();
+  this.style.backgroundImage = sonicWackedSkin;
   this.style.pointerEvents = "none";
   setTimeout(() => {
-    this.style.backgroundImage = 'url("/image/sonic.png")';
+    //startVisual();
+    this.style.backgroundImage = sonicMainSkin;
     this.style.pointerEvents = "all";
   }, 800);
   scoreBoard.textContent = gameScore.score;
+}
+
+function startVisual() {
+  this.style.backgroundImage = sonicMainSkin;
+  this.style.pointerEvents = "all";
+}
+
+function wackVisual() {
+  this.style.backgroundImage = sonicWackedSkin;
+  this.style.pointerEvents = "none";
 }
 
 function timer() {

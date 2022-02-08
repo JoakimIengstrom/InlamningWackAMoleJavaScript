@@ -30,8 +30,8 @@ export class GameScore {
     this.score = 0;
   }
 
-  whackedMole() {
-    this.score++;
+  whackedMole(logic) {
+    if (logic.stillTimeLeft() >= 0) this.score++;
   }
 
   saveHighScore() {
