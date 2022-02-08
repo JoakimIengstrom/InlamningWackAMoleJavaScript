@@ -13,6 +13,8 @@ const highScore = document.querySelector(".highScore");
 const startButton = document.querySelector(".startButton");
 const countdownBoard = document.querySelector(".countdown");
 
+printHighscore();
+
 function startGame() {
   scoreBoard.textContent = 0;
   scoreBoard.style.textContent = "block";
@@ -24,11 +26,11 @@ function startGame() {
 
 startButton.addEventListener("click", startGame);
 
-function pickRandomHole(holes) {
+function pickRandomHole() {
   const randomHole = Math.floor(Math.random() * holes.length);
   const hole = holes[randomHole];
   if (hole === logic.lastHole) {
-    return pickRandomHole(holes);
+    return pickRandomHole();
   }
   logic.lastHole = hole;
   return hole;
@@ -88,5 +90,3 @@ function printHighscore() {
   let printOutScore = gameScore.loadHighScore();
   highScore.textContent = "HighScore: " + printOutScore + " points";
 }
-
-printHighscore();

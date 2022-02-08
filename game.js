@@ -18,7 +18,7 @@ export class Logic {
 export class GameScore {
   constructor() {
     this.score = 0;
-    this.newHighscore = 0;
+    this.highscore = localStorage.getItem("save");
   }
 
   whackedMole() {
@@ -29,17 +29,17 @@ export class GameScore {
     localStorage.setItem("save", JSON.stringify(this.newHighscore));
   }
   loadHighScore() {
-    let oldHighscore = localStorage.getItem("save");
+    let loadedHighscore = this.highscore;
     if (localStorage.getItem("save") > 0) {
-      return oldHighscore;
+      return loadedHighscore;
     } else {
-      oldHighscore = 0;
-      return oldHighscore;
+      loadedHighscore = 0;
+      return loadedHighscore;
     }
   }
   uppdateHighScore() {
-    if (this.score > this.newHighscore) {
-      this.newHighscore = this.score;
+    if (this.score > this.highscore) {
+      this.highscore = this.score;
     }
   }
 }

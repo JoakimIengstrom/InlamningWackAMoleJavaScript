@@ -2,6 +2,6 @@
   "dependencies": {
     "chai": "^4.3.6",
     "jsdoc": "^3.6.10",
-    "moca": "^0.4.3"
+    "mocha": "^9.2.0"
   }
 }
