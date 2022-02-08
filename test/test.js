@@ -1,5 +1,6 @@
 import { Logic } from "../game.js";
 import { GameScore } from "../game.js";
+import {} from "../util.js";
 
 //const logic = new Logic();
 //const gameScore = new GameScore();
@@ -85,13 +86,15 @@ describe("Score functions", function () {
 
   describe("Local Storage", function () {
     it("Reset score, add 10, uppdate, then save it, load it and expectiong 10", function () {
-      localStorage.clear("save");
-      gameScore.resetScore();
-      for (let i = 1; i < 11; i++) gameScore.whackedMole(logic);
-      gameScore.uppdateHighScore();
-      gameScore.saveHighScore();
-      let checkLoadedScore = gameScore.loadHighScore();
-      assert.equal(10, checkLoadedScore);
+      let content = localStorage.stashContent(); //Stash highscore
+      gameScore.resetScore(); //Reset score for this test
+      gameScore.highscore = 0; //Reset highscore for this test
+      for (let i = 1; i < 11; i++) gameScore.whackedMole(logic); //add 10 wacks
+      gameScore.uppdateHighScore(); //Run uppdate
+      gameScore.saveHighScore(); //Save to localstorage
+      let checkLoadedScore = gameScore.loadHighScore(); //Fetch from localstorage
+      assert.equal(10, checkLoadedScore); //Should have 10 from local.
+      localStorage.restoreContent(content); //Restore real highscore
     });
   });
 });
