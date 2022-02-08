@@ -13,8 +13,6 @@ const highScore = document.querySelector(".highScore");
 const startButton = document.querySelector(".startButton");
 const countdownBoard = document.querySelector(".countdown");
 
-printHighscore();
-
 function startGame() {
   gameScore.resetScore();
   scoreBoard.textContent = 0;
@@ -92,3 +90,4 @@ function printHighscore() {
   let printOutScore = gameScore.loadHighScore();
   highScore.textContent = "HighScore: " + printOutScore + " points";
 }
+printHighscore();

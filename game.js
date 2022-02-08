@@ -22,7 +22,8 @@ export class Logic {
 export class GameScore {
   constructor() {
     this.score = 0;
-    this.highscore = localStorage.getItem("save");
+    this.highscore = 0;
+    this.loadHighScore();
   }
 
   resetScore() {
@@ -37,7 +38,9 @@ export class GameScore {
     localStorage.setItem("save", JSON.stringify(this.highscore));
   }
   loadHighScore() {
-    if (this.highscore > 0) {
+    let loadScore = +localStorage.getItem("save");
+    if (loadScore > 0) {
+      this.highscore = loadScore;
       return this.highscore;
     } else {
       return 0;
